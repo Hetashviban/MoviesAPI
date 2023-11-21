@@ -37,3 +37,9 @@
 .text-field{
     -fx-background-radius: 20px;
 }
+
+#titlesListView{
+    -fx-padding: 10px;
+    -fx-background-color: #140d09;
+    -fx-background-radius: 20px;
+}
