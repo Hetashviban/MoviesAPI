@@ -54,8 +54,10 @@ public class SearchViewController {
         listView.getSelectionModel()
                 .selectedItemProperty()
                 .addListener((obs, oldValue, movieSelected) -> {
+                    //The if else statements - when a movie poster is selected and when a user searches for a new movie - the old poster visibility will be set to false
                     if (movieSelected != null) {
                         selectedVBox.setVisible(true);
+                        //When there is no poster of a particular move available - it adds a default image poster
                         try {
                             posterImageView.setImage(new Image(movieSelected.getPoster()));
                         }
