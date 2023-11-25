@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -48,6 +49,23 @@ public class SearchViewController {
         selectedVBox.setVisible(false);
         titlesVBox.setVisible(false);
         msgLabel.setVisible(false);
+
+        //This will add the movie poster
+        listView.getSelectionModel()
+                .selectedItemProperty()
+                .addListener((obs, oldValue, movieSelected) -> {
+                    if (movieSelected != null) {
+                        selectedVBox.setVisible(true);
+                        try {
+                            posterImageView.setImage(new Image(movieSelected.getPoster()));
+                        }
+                        catch (IllegalArgumentException e){
+                            posterImageView.setImage(new Image(Main.class.getResourceAsStream("images/default_poster.png")));
+                        }
+                    } else {
+                        selectedVBox.setVisible(false);
+                    }
+                });
     }
 
     @FXML
@@ -55,8 +73,21 @@ public class SearchViewController {
         String movieName = searchTextField.getText().trim();
         APIUtility.callAPI(movieName);
         APIResponse apiResponse = APIUtility.callAPI(movieName);
-        titlesVBox.setVisible(true);
-        listView.getItems().clear();
-        listView.getItems().addAll(apiResponse.getMovies());
-    }
+
+        //Handling exception where if the user clicks search button without entering any text in the search field
+        if (apiResponse.getMovies() != null){
+            titlesVBox.setVisible(true);
+            listView.getItems().clear();
+            listView.getItems().addAll(apiResponse.getMovies());
+
+            //Setting the text of the label to show the results showing
+            resultsMsgLabel.setText("Showing " + listView.getItems().size() + " of " + apiResponse.getTotalResults());
+            msgLabel.setVisible(false);
+        }
+        else {
+            titlesVBox.setVisible(false);
+            msgLabel.setVisible(true);
+            msgLabel.setText("Enter a movie title and click \"Search\"");
+        }
+        }
 }
