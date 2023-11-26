@@ -1,11 +1,14 @@
 package com.example.moviesapi;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 
-public class InfoViewController {
+import java.io.IOException;
+
+public class InfoViewController implements MovieLoader{
 
     @FXML
     private Label genreLabel;
@@ -31,4 +34,13 @@ public class InfoViewController {
     @FXML
     private Label yearLabel;
 
+    @FXML
+    void getBackToSearch(ActionEvent event) throws IOException {
+        SceneChanger.changeScenes(event, "search-view.fxml");
+    }
+
+    @Override
+    public void loadMovie(String imdbID) {
+        System.out.println(imdbID);
+    }
 }
