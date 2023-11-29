@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-public class SearchViewController {
+public class SearchViewController{
 
     @FXML
     private ListView<Movie> listView;
