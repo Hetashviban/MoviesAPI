@@ -2,10 +2,7 @@ package com.example.moviesapi;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -14,6 +11,9 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 
 public class SearchViewController{
+
+    @FXML
+    private Button fetchAllButton;
 
     @FXML
     private ListView<Movie> listView;
@@ -41,6 +41,8 @@ public class SearchViewController{
 
     @FXML
     private VBox titlesVBox;
+
+    private int page, totalNumberOfMovies;
 
     @FXML
     private void initialize()
@@ -72,19 +74,18 @@ public class SearchViewController{
 
     @FXML
     void searchForMovies(ActionEvent event) throws IOException, InterruptedException {
+        page = 1;
+
         String movieName = searchTextField.getText().trim();
         APIUtility.callAPI(movieName);
         APIResponse apiResponse = APIUtility.callAPI(movieName);
-
+        totalNumberOfMovies = Integer.parseInt(apiResponse.getTotalResults());
         //Handling exception where if the user clicks search button without entering any text in the search field
         if (apiResponse.getMovies() != null){
             titlesVBox.setVisible(true);
             listView.getItems().clear();
             listView.getItems().addAll(apiResponse.getMovies());
-
-            //Setting the text of the label to show the results showing
-            resultsMsgLabel.setText("Showing " + listView.getItems().size() + " of " + apiResponse.getTotalResults());
-            msgLabel.setVisible(false);
+            updateLabels();
         }
         else {
             titlesVBox.setVisible(false);
@@ -93,9 +94,28 @@ public class SearchViewController{
         }
         }
 
+        private void updateLabels()
+    {
+        //Setting the text of the label to show the results showing
+        resultsMsgLabel.setText("Showing " + listView.getItems().size() + " of " + totalNumberOfMovies);
+        if (listView.getItems().size() < totalNumberOfMovies)
+        {
+            fetchAllButton.setVisible(true);
+        }
+        else
+        {
+            fetchAllButton.setVisible(false);
+        }
+    }
+
     @FXML
     void getMovieDetails(ActionEvent event) throws IOException {
         Movie movieSelected = listView.getSelectionModel().getSelectedItem();
         SceneChanger.changeScenes(event, "info-view.fxml", movieSelected.getImdbID());
+    }
+
+    @FXML
+    void fetchAllMovies(ActionEvent event) {
+
     }
 }

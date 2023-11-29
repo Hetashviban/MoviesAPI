@@ -2,6 +2,7 @@ package com.example.moviesapi;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
@@ -60,7 +61,7 @@ public class InfoViewController implements MovieLoader{
             throw new RuntimeException(e);
         } catch (IllegalArgumentException e){
             //If no poster exists - default image will be posted
-            imageView.setImage(new Image(Main.class.getResourceAsStream("images/default_poster")));
+            imageView.setImage(new Image(Main.class.getResourceAsStream("images/default_poster.png")));
         }
     }
 }
