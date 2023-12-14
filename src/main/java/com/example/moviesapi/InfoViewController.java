@@ -45,8 +45,8 @@ public class InfoViewController implements MovieLoader{
     public void loadMovie(String imdbID)
     {
         try {
-        MovieDetails movie = APIUtility.getMovieDetails(imdbID);
-        //Populating all the tables with the data
+            MovieDetails movie = APIUtility.getMovieDetails(imdbID);
+            //Populating all the tables with the data
             genreLabel.setText(movie.getGenre());
             languageLabel.setText(movie.getLanguage());
             plotLabel.setText(movie.getPlot());

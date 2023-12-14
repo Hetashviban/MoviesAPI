@@ -17,11 +17,11 @@ import java.util.List;
 
 public class APIUtility {
     /*This method will call the ODMb API from the with the movie title passed as an argument*/
-    public static APIResponse callAPI(String movieName) throws IOException, InterruptedException {
+    public static APIResponse callAPI(String movieName, int page) throws IOException, InterruptedException {
         //If we received "Star Wars", we need to translate that to be "Star%20Wars"
         movieName = movieName.replace(" ", "%20"); /*This will replace all the space with %20*/
 
-        String uri = "https://www.omdbapi.com/?apikey=f54d92f0&s="+movieName;
+        String uri = "https://www.omdbapi.com/?apikey=f54d92f0&s="+movieName+"&page="+page;
 
         //configure the environment to make a HTTP request
         //(this includes an update to the module-info.java file)
@@ -67,7 +67,6 @@ public class APIUtility {
         Gson gson = new Gson();
         return gson.fromJson(httpResponse.body(), MovieDetails.class);
     }
-
 
     //We will use this if our json file is not in the form of objects but in the form of array
 //    public static Movie[] getMoviesFromFile(String fileName)

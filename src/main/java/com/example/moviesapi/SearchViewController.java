@@ -77,8 +77,7 @@ public class SearchViewController{
         page = 1;
 
         String movieName = searchTextField.getText().trim();
-        APIUtility.callAPI(movieName);
-        APIResponse apiResponse = APIUtility.callAPI(movieName);
+        APIResponse apiResponse = APIUtility.callAPI(movieName,page);
         totalNumberOfMovies = Integer.parseInt(apiResponse.getTotalResults());
         //Handling exception where if the user clicks search button without entering any text in the search field
         if (apiResponse.getMovies() != null){
@@ -115,7 +114,13 @@ public class SearchViewController{
     }
 
     @FXML
-    void fetchAllMovies(ActionEvent event) {
+    void fetchAllMovies() throws IOException, InterruptedException {
+        page++;
+        APIResponse apiResponse = APIUtility.callAPI(searchTextField.getText().trim(),page);
+        listView.getItems().addAll(apiResponse.getMovies());
+        updateLabels();
 
+        if (listView.getItems().size()<totalNumberOfMovies)
+            fetchAllMovies();
     }
 }
