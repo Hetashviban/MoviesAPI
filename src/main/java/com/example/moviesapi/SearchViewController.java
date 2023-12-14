@@ -1,5 +1,6 @@
 package com.example.moviesapi;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -114,13 +115,27 @@ public class SearchViewController{
     }
 
     @FXML
-    void fetchAllMovies() throws IOException, InterruptedException {
-        page++;
-        APIResponse apiResponse = APIUtility.callAPI(searchTextField.getText().trim(),page);
-        listView.getItems().addAll(apiResponse.getMovies());
-        updateLabels();
+    void fetchAllMovies(){
+        Thread fetchThread = new Thread(()-> {
+            progressBar.setVisible(true);
+            //Whatever goes here is the run method
+            page++;
+            try {
+                APIResponse apiResponse = APIUtility.callAPI(searchTextField.getText().trim(),page);
+                listView.getItems().addAll(apiResponse.getMovies());
+                Platform.runLater(()->{
+                    updateLabels();
+                    progressBar.setProgress((double) listView.getItems().size()/totalNumberOfMovies);
+                }); //When the java fx file is available update it
+            } catch (IOException  | InterruptedException e) {
+                throw new RuntimeException(e);
+            }
 
-        if (listView.getItems().size()<totalNumberOfMovies)
-            fetchAllMovies();
+            if (listView.getItems().size()<totalNumberOfMovies)
+                fetchAllMovies();
+            else
+                progressBar.setVisible(false);
+        });
+        fetchThread.start();
     }
 }
