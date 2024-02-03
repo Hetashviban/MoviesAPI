@@ -1,6 +1,6 @@
 .root{
     -fx-font: bold italic 20pt "Arial";
-    -fx-background-image: url("images/background.png");
+    -fx-background-image: url("images/background.jpg");
     -fx-background-size: cover;
     -fx-text-fill: #e0820f;
 }

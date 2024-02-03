@@ -12,17 +12,13 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="900.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.moviesapi.InfoViewController">
+<AnchorPane prefHeight="900.0" prefWidth="1100.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.moviesapi.InfoViewController">
     <children>
         <HBox alignment="CENTER" layoutX="252.0" layoutY="463.0" prefHeight="1000.0" prefWidth="800.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="300.0">
             <children>
-                <VBox alignment="CENTER">
-                    <children>
-                        <ImageView fx:id="imageView" fitHeight="500.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
-                        <Button mnemonicParsing="false" onAction="#getBackToSearch" text="Back" />
-                    </children>
-                </VBox>
-                <GridPane id="msgLabel" prefWidth="550.0">
+                  <ImageView fx:id="imageView" fitHeight="500.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
+                <VBox alignment="CENTER" />
+                <GridPane id="msgLabel" prefHeight="469.0" prefWidth="550.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="10.0" prefWidth="134.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="346.0" minWidth="10.0" prefWidth="346.0" />
@@ -58,5 +54,6 @@
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
         </HBox>
+            <Button layoutX="704.0" layoutY="225.0" mnemonicParsing="false" onAction="#getBackToSearch" text="Back" />
     </children>
 </AnchorPane>
