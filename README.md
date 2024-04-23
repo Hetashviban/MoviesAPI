@@ -55,6 +55,6 @@ To run the project locally, follow these steps:
 
 ## 📷 Project Photos
 
-https://github.com/Hetashviban/MoviesAPI/blob/master/src/main/resources/com/example/moviesapi/images/screenshot1.png
+<img src="https://github.com/Hetashviban/MoviesAPI/blob/master/src/main/resources/com/example/moviesapi/images/screenshot1.png" alt="Movie Fetcher App Screenshot 1" />
 
-https://github.com/Hetashviban/MoviesAPI/blob/master/src/main/resources/com/example/moviesapi/images/screenshot2.png
+<img src="https://github.com/Hetashviban/MoviesAPI/blob/master/src/main/resources/com/example/moviesapi/images/screenshot2.png" alt="Movie Fetcher App Screenshot 2" />
